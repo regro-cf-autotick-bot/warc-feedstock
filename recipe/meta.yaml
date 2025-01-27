@@ -5,22 +5,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/w/warc/warc-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/w/warc/warc-{{ version }}.tar.gz
   sha256: 65ec3336287ae7a17c969736935ba188678df10f2ec813d8e3474cc51bb71d39
 
 build:
-  number: 1
+  number: 2
   noarch: python
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
   host:
-    - python <3
+    - python {{ python_min }}
     - pip
   run:
-    - python <3
+    - python >={{ python_min }},<3
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - warc
 
